@@ -4,12 +4,18 @@ import sqlite3 as bank
 def create_table(path: str):
     try:
         conn = bank.connect(path)
+        print("connect To DB successfully!")
         with conn:
             cur = conn.cursor()
+            print("Join curser Into DB!")
             sql = "DROP TABLE IF EXISTS tbl_personal" 
             cur.execute(sql)
-            sql = "create table tbl_personal (Personal_id varchar(25) not null primary key, name varchar(250) not null, family varchar(250) not null,bio text);"
-
+            print("Drop tbl_personal successfully!")
+            sql = "CREATE TABLE tbl_personal ( personal_code int PRIMARY KEY NOT NULL,name varchar(250) NOT NULL,family varchar(250) NOT NULL);"
+            cur.execute(sql)
+            sql= "CREATE UNIQUE INDEX tbl_personal_personal_code_uindex ON tbl_personal (personal_code);"
+            cur.execute(sql)
+            print("Create tbl_personal successfully!")
     except:
         print("Error Connection")
 
