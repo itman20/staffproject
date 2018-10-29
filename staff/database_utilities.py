@@ -16,7 +16,6 @@ def create_table(path: str):
             sql= "CREATE UNIQUE INDEX tbl_personal_personal_code_uindex ON tbl_personal (personal_code);"
             cur.execute(sql)
             print("Create tbl_personal successfully!")
-            print("salam")
     except:
         print("Error Connection")
 
@@ -47,14 +46,13 @@ def update_staff(db_path: str, staff_id: str, name: str, family: str, bio: str):
         with conn:
             cur = conn.cursor()
             print("Update_Staff_Join curser Into DB!")
-            sql = "Update tbl_personal ( personal_code,name ,family ,bio) VALUES (?,?,?,?)"
-            staff = (staff_id,name , family,bio)
+            sql = "Update tbl_personal SET name=? ,family=? ,bio=? WHERE personal_code=?"
+            staff = (name , family,bio,staff_id)
             cur.execute(sql,staff)
-            print("Add_Staff_Created!")
-            print(cur.lastrowid)
+            print("Update_Staff")
+
     except:
         print("Error Connection")
-
 
 def show_staff(db_path: str, staff_id: str):
     # TODO etelaate fard ra neshan midahad

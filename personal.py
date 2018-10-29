@@ -5,5 +5,12 @@ id=input("id")
 name=input("name")
 family=input("family")
 bio=input("bio")
-print("salam")
+
 database_utilities.add_staff(db_path="staff.db",staff_id=id,name=name,family=family,bio=bio)
+
+id=input("id")
+name=input("name")
+family=input("family")
+bio=input("bio")
+
+database_utilities.update_staff(db_path="staff.db",staff_id=id,name=name,family=family,bio=bio)
