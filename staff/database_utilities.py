@@ -59,16 +59,16 @@ def show_staff(db_path: str, staff_id: str):
 
     try:
         conn = bank.connect(db_path)
-        print("Update_connect To DB successfully!")
+        print("ShowALL_connect To DB successfully!")
         with conn:
             cur = conn.cursor()
-            print("Update_Staff_Join curser Into DB!")
+            print("ShowALL_Staff_Join curser Into DB!")
             sql = "Select * FROM tbl_personal"
             cur.execute(sql)
             results = cur.fetchall()
             for row in results:
               print(row)
-            print("Update_Staff")
+            print("ShowALL_Staff")
 
     except:
         print("Error Connection")
