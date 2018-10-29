@@ -16,6 +16,7 @@ def create_table(path: str):
             sql= "CREATE UNIQUE INDEX tbl_personal_personal_code_uindex ON tbl_personal (personal_code);"
             cur.execute(sql)
             print("Create tbl_personal successfully!")
+            print("salam")
     except:
         print("Error Connection")
 
