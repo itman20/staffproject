@@ -56,7 +56,23 @@ def update_staff(db_path: str, staff_id: str, name: str, family: str, bio: str):
 
 def show_staff(db_path: str, staff_id: str):
     # TODO etelaate fard ra neshan midahad
-    pass
+
+    try:
+        conn = bank.connect(db_path)
+        print("Update_connect To DB successfully!")
+        with conn:
+            cur = conn.cursor()
+            print("Update_Staff_Join curser Into DB!")
+            sql = "Select * FROM tbl_personal"
+            cur.execute(sql)
+            results = cur.fetchall()
+            for row in results:
+              print(row)
+            print("Update_Staff")
+
+    except:
+        print("Error Connection")
+
 
 
 def show_all_staff(db_path: str):
