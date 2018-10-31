@@ -1,5 +1,5 @@
 import sqlite3 as bank
-
+from sqlite3 import Error
 
 def create_table(path: str):
     try:
@@ -54,9 +54,30 @@ def update_staff(db_path: str, staff_id: str, name: str, family: str, bio: str):
     except:
         print("Error Connection")
 
-def show_staff(db_path: str, staff_id: str):
+def show_staff(db_path: str, staff_id: int):
     # TODO etelaate fard ra neshan midahad
 
+    try:
+        conn = bank.connect(db_path)
+        print("Show_connect To DB successfully!")
+        with conn:
+            cur = conn.cursor()
+            print("Show_Staff_Join curser Into DB!")
+            sql = "Select * FROM tbl_personal where personal_code=?"
+            id=(staff_id,)
+            cur.execute(sql,id)
+
+            rows = cur.fetchone()
+            print(rows)
+            print("Show_Staff")
+
+    except:
+        print("Error Connection")
+
+
+
+def show_all_staff(db_path: str):
+    # TODO etelaate koliye afrad ra neshan midahad
     try:
         conn = bank.connect(db_path)
         print("ShowALL_connect To DB successfully!")
@@ -72,13 +93,6 @@ def show_staff(db_path: str, staff_id: str):
 
     except:
         print("Error Connection")
-
-
-
-def show_all_staff(db_path: str):
-    # TODO etelaate koliye afrad ra neshan midahad
-    pass
-
 
 def remove_staff(db_path: str, staff_id: str):
     # TODO etelate farrd remove shavad
