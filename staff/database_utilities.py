@@ -54,7 +54,7 @@ def update_staff(db_path: str, staff_id: str, name: str, family: str, bio: str):
     except:
         print("Error Connection")
 
-def show_staff(db_path: str, staff_id: int):
+def show_staff(db_path: str, staff_id: str):
     # TODO etelaate fard ra neshan midahad
 
     try:
@@ -96,4 +96,20 @@ def show_all_staff(db_path: str):
 
 def remove_staff(db_path: str, staff_id: str):
     # TODO etelate farrd remove shavad
+    try:
+        conn = bank.connect(db_path)
+        print("Remove_connect To DB successfully!")
+        with conn:
+            cur = conn.cursor()
+            print("Remove_Staff_Join curser Into DB!")
+            sql = "DELETE FROM tbl_personal where personal_code=?"
+            id=(staff_id,)
+            cur.execute(sql,id)
+
+            print("Staff deleted")
+
+    except:
+        print("Error Connection")
+
+
     pass

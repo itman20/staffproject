@@ -17,3 +17,8 @@ from staff import database_utilities
 staff_id=input("Enter Your ID For Show Info : ")
 database_utilities.show_staff(db_path="staff.db",staff_id=staff_id)
 database_utilities.show_all_staff(db_path="staff.db")
+
+staff_id=input("Enter Your ID For Show Info : ")
+database_utilities.remove_staff(db_path="staff.db",staff_id=staff_id)
+
+database_utilities.show_all_staff(db_path="staff.db")
