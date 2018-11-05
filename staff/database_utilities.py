@@ -1,115 +1,151 @@
 import sqlite3 as bank
-from sqlite3 import Error
+#from sqlite3 import Error
+import logging
 
-def create_table(path: str):
+logging.basicConfig(filename="DB_Utilities_Logs.log",level=logging.DEBUG,format="format='%(asctime)-15s %(name)-5s %(levelname)-8s  %(message)s'")
+
+FORMATTER = logging.Formatter("%(asctime)s — %(name)s — %(levelname)s — %(message)s ")
+
+l_conectDB=logging.getLogger("Module_Connect_To_DataBase")
+
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(FORMATTER)
+l_conectDB.addHandler(console_handler)
+
+
+
+def create_table(db_path: str):
     try:
-        conn = bank.connect(path)
-        print("connect To DB successfully!")
+        conn = bank.connect(db_path)
+
+        l_conectDB.info("Successful Connect To  DataBase Server For Create Table Into {} DB".format(db_path))
+
         with conn:
             cur = conn.cursor()
-            print("Join curser Into DB!")
-            sql = "DROP TABLE IF EXISTS tbl_personal" 
+
+            l_conectDB.info("Join curser Into  DataBase Server!")
+
+            sql = "DROP TABLE IF EXISTS tbl_personal"
             cur.execute(sql)
-            print("Drop tbl_personal successfully!")
-            sql = "CREATE TABLE tbl_personal ( personal_code int PRIMARY KEY NOT NULL,name varchar(250) NOT NULL,family varchar(250) NOT NULL,bio varchar(250) NOT NULL);"
+            l_conectDB.info("Drop tbl_personal successfully!")
+
+            sql = "CREATE TABLE tbl_personal ( personal_code int PRIMARY KEY NOT NULL,name varchar(250) NOT NULL,family varchar(250) NOT NULL,bio varchar(250) NOT NULL, show int DEFAULT 1);"
+
             cur.execute(sql)
             sql= "CREATE UNIQUE INDEX tbl_personal_personal_code_uindex ON tbl_personal (personal_code);"
             cur.execute(sql)
-            print("Create tbl_personal successfully!")
+
+            l_conectDB.info("Create tbl_personal successfully!")
     except:
-        print("Error Connection")
+        l_conectDB.critical("Error connect To DataBase Server for {} DB".format(db_path))
 
 
 def add_staff(db_path: str, staff_id: str, name: str, family: str, bio: str):
-    # TODO etelate farrd azafe shavad
+
     try:
         conn = bank.connect(db_path)
-        print("connect To DB successfully!")
+
+        l_conectDB.info("Successful Connect To  DataBase Server For Add Staff with ID {} Into ".format(staff_id,db_path))
+
         with conn:
             cur = conn.cursor()
-            print("Add_Staff_Join curser Into DB!")
+
+            l_conectDB.info("Join curser Into  DataBase Server! ")
+
             sql = "INSERT INTO tbl_personal ( personal_code,name ,family ,bio) VALUES (?,?,?,?)"
             staff = (staff_id,name , family,bio)
             cur.execute(sql,staff)
-            print("Add_Staff_Created!")
+
+            l_conectDB.info("Added Staff to Table tbl_personal From {} DB! ".format(db_path))
+
 
     except:
-        print("Error Connection")
+        l_conectDB.critical("Error connect To DataBaseServer For {} DB".format(db_path))
+
 
 
 
 def update_staff(db_path: str, staff_id: str, name: str, family: str, bio: str):
-    # TODO etelate farrd azafe shavad
+
     try:
         conn = bank.connect(db_path)
-        print("Update_connect To DB successfully!")
+        l_conectDB.info(
+            "Successful Connect To  DataBase Server For Update Staff with ID {} Into ".format(staff_id, db_path))
+
         with conn:
             cur = conn.cursor()
-            print("Update_Staff_Join curser Into DB!")
+
+            l_conectDB.info("Join curser Into  DataBase Server! ")
+
             sql = "Update tbl_personal SET name=? ,family=? ,bio=? WHERE personal_code=?"
             staff = (name , family,bio,staff_id)
             cur.execute(sql,staff)
-            print("Update_Staff")
+
+            l_conectDB.info("Updated Staff in Table tbl_personal From {} DB! ".format(db_path))
 
     except:
-        print("Error Connection")
+        l_conectDB.critical("Error connect To DataBaseServer For {} DB".format(db_path))
 
 def show_staff(db_path: str, staff_id: str):
-    # TODO etelaate fard ra neshan midahad
+
 
     try:
         conn = bank.connect(db_path)
-        print("Show_connect To DB successfully!")
+        l_conectDB.info(
+            "Successful Connect To  DataBase Server For Staff Staff with ID {} Into ".format(staff_id, db_path))
+
         with conn:
             cur = conn.cursor()
-            print("Show_Staff_Join curser Into DB!")
+            l_conectDB.info("Join curser Into  DataBase Server! ")
             sql = "Select * FROM tbl_personal where personal_code=?"
             id=(staff_id,)
             cur.execute(sql,id)
 
             rows = cur.fetchone()
             print(rows)
-            print("Show_Staff")
+            l_conectDB.info("Show Staff in Table tbl_personal From {} DB! ".format(db_path))
 
     except:
-        print("Error Connection")
+        l_conectDB.critical("Error connect To DataBaseServer For {} DB".format(db_path))
 
 
 
 def show_all_staff(db_path: str):
-    # TODO etelaate koliye afrad ra neshan midahad
+
     try:
         conn = bank.connect(db_path)
-        print("ShowALL_connect To DB successfully!")
+        l_conectDB.info("Successful Connect To  DataBase Server For Show All Staffs")
         with conn:
             cur = conn.cursor()
-            print("ShowALL_Staff_Join curser Into DB!")
-            sql = "Select * FROM tbl_personal"
+            l_conectDB.info("Join curser Into  DataBase Server! ")
+            sql = "Select * FROM tbl_personal WHERE show IS NOT 0"
             cur.execute(sql)
             results = cur.fetchall()
             for row in results:
-              print(row)
-            print("ShowALL_Staff")
+                print(row)
+                l_conectDB.info("ShowALL_Staff")
 
     except:
-        print("Error Connection")
+        l_conectDB.critical("Error connect To DataBaseServer For DB")
+
 
 def remove_staff(db_path: str, staff_id: str):
-    # TODO etelate farrd remove shavad
+
     try:
         conn = bank.connect(db_path)
-        print("Remove_connect To DB successfully!")
+        l_conectDB.info(
+            "Successful Connect To  DataBase Server For Remove Staff with ID {} Into ".format(staff_id, db_path))
+
         with conn:
             cur = conn.cursor()
-            print("Remove_Staff_Join curser Into DB!")
-            sql = "DELETE FROM tbl_personal where personal_code=?"
+            l_conectDB.info("Join curser Into  DataBase Server! ")
+            # sql = "DELETE FROM tbl_personal where personal_code=?"
+            sql = "Update tbl_personal SET show=0 WHERE personal_code=?"
             id=(staff_id,)
             cur.execute(sql,id)
-
-            print("Staff deleted")
+            l_conectDB.info("Removed Staff From Table tbl_personal From {} DB! ".format(db_path))
 
     except:
-        print("Error Connection")
+            l_conectDB.critical("Error connect To DataBaseServer For {} DB".format(db_path))
 
 
-    
