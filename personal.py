@@ -70,15 +70,18 @@ def show_all_staff():
     database_utilities.show_all_staff(db_path)
 
 #########################################################
-print(20*"#"+"_Please Seletct One Option_"+20*"#")
-print("1. Create DataBase")
-print("2. Add Staff")
-print("3. Update Staff")
-print("4. Show Staff")
-print("5. Show Staffs")
-print("6. Remove Staff")
+def showMenu():
+    print(20*"#"+"_Please Seletct One Option_"+20*"#")
+    print("1. Create DataBase")
+    
+    print("2. Add Staff")
+    print("3. Update Staff")
+    print("4. Show Staff")
+    print("5. Show Staffs")
+    print("6. Remove Staff")
 
 while(1):
+    showMenu()
     num = int(input("Enter Your Numbr Of Options : "))
     func=chooseMenu(num)
     func()
