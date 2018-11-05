@@ -3,7 +3,7 @@ import sqlite3 as bank
 import logging
 
 logging.basicConfig(filename="DB_Utilities_Logs.log",level=logging.DEBUG,format="format='%(asctime)-15s %(name)-5s %(levelname)-8s  %(message)s'")
-
+ 
 FORMATTER = logging.Formatter("%(asctime)s — %(name)s — %(levelname)s — %(message)s ")
 
 l_conectDB=logging.getLogger("Module_Connect_To_DataBase")
