@@ -26,12 +26,13 @@ from staff import database_utilities
 
 # database_utilities.create_table(db_path="")
 
+
 def chooseMenu(option:int):
     switcher = {
         1: createDataBase,
         2: addStaff,
         3: updateStaff,
-        4: "April",
+        4: show_staff,
         5: show_all_staff,
         6: "June",
         7: "July",
@@ -59,6 +60,7 @@ def addStaff():
 
 def updateStaff():
     db_path=input("Your DataBase Name: ")
+
     id=input("id: ")
     name=input("name: ")
     family=input("family: ")
@@ -69,11 +71,16 @@ def show_all_staff():
     db_path = input("Your DataBase Name: ")
     database_utilities.show_all_staff(db_path)
 
+def show_staff():
+    db_path = input("Your DataBase Name: ")
+    id = input("id: ")
+    database_utilities.show_staff(db_path=db_path,staff_id=id)
+
+
 #########################################################
 def showMenu():
     print(20*"#"+"_Please Seletct One Option_"+20*"#")
     print("1. Create DataBase")
-    
     print("2. Add Staff")
     print("3. Update Staff")
     print("4. Show Staff")
