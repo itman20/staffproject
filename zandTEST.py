@@ -133,13 +133,14 @@ def showMenu2_1():
 
 def showMenu2_2():
     print(20*"#"+"_Please Seletct One Option_"+20*"#")
-    print("21. SelectDB")
+    print("21. Select Table")
+    print("21. Delete Table")
     print("22. Back")
 
 def showMenu3_1():
     print(20*"#"+"_Please Seletct One Option_"+20*"#")
-    print("51. ListDB")
-    print("52. SelectDB")
+    print("51. Show All")
+    print("52. Update")
     print("53. Add")
     print("54. Delete")
     print("55. Enable/Disable")
