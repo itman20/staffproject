@@ -43,12 +43,13 @@ def chooseMenu(option:int):
         33: Back,
         41: "December",
         42: Back,
-        51: "December",
+        51: "ShowAll",
         52: "December",
         53: "December",
         54: "December",
         55: "December",
-        56: showMenu2_2,
+        56: "December",
+        57: showMenu2_2,
     }
     return switcher.get(option, "Invalid Number")
 
@@ -120,8 +121,9 @@ def showMenu():
     print("4. Exit")
 
 def showMenu1():
-    print("\n")
-    print(20*"#"+"_GOOD BAY_"+20*"#")
+#    print("\n")
+#    print(20*"#"+"_GOOD BAY_"+20*"#")
+
     exit()
 
 def showMenu2_1():
@@ -140,11 +142,12 @@ def showMenu2_2():
 def showMenu3_1():
     print(20*"#"+"_Please Seletct One Option_"+20*"#")
     print("51. Show All")
-    print("52. Update")
-    print("53. Add")
-    print("54. Delete")
-    print("55. Enable/Disable")
-    print("56. Back")
+    print("52. Search")
+    print("53. Update")
+    print("54. Add")
+    print("55. Delete")
+    print("56. Enable/Disable")
+    print("57. Back")
 
 def showMenu2_3():
     print(20*"#"+"_Please Seletct One Option_"+20*"#")
